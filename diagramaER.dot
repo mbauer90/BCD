@@ -1,0 +1,33 @@
+graph diagramaER{
+
+	//Entidades
+	aluno [shape=record]
+	disciplina [shape=record]
+	processo_matricula [shape=record]
+	horarios [shape=record]
+	professor [shape=record]
+	curso [shape=record]
+
+	// Relacionamentos
+	cursou [shape=diamond]
+	faz [shape=diamond]
+	interesse [shape=diamond]
+	calendario [shape=diamond]
+	leciona [shape=diamond]
+	grade [shape=diamond]
+	estuda [shape=diamond]
+	pre_requisitos [shape=diamond]
+
+	// Ligações
+	aluno -- cursou -- disciplina
+	aluno -- estuda -- curso
+	aluno -- faz -- processo_matricula
+	processo_matricula -- interesse -- disciplina
+	disciplina -- calendario -- horarios
+	disciplina -- pre_requisitos -- disciplina
+	disciplina -- leciona -- professor
+	disciplina -- grade -- curso
+}
+
+//meato -Tpng diagramaER.dot -o diagramaER.png
+//dot -Tpng diagramaER.dot -o diagramaER.png
