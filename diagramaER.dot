@@ -1,33 +1,37 @@
-graph diagramaER{
+graph diagramaER {
 
-	//Entidades
+	//ENTIDADES
 	aluno [shape=record]
 	disciplina [shape=record]
-	processo_matricula [shape=record]
-	horarios [shape=record]
 	professor [shape=record]
 	curso [shape=record]
+	horários[shape=record]
+	proc_matricula [shape=record]
 
-	// Relacionamentos
+
+	//RELACIONAMENTOS
 	cursou [shape=diamond]
-	faz [shape=diamond]
-	interesse [shape=diamond]
-	calendario [shape=diamond]
+	pre_rec [shape=diamond]
 	leciona [shape=diamond]
 	grade [shape=diamond]
+	calendário [shape=diamond]
+	interesse [shape=diamond]
 	estuda [shape=diamond]
-	pre_requisitos [shape=diamond]
+	faz [shape=diamond]
 
-	// Ligações
-	aluno -- cursou -- disciplina
-	aluno -- estuda -- curso
-	aluno -- faz -- processo_matricula
-	processo_matricula -- interesse -- disciplina
-	disciplina -- calendario -- horarios
-	disciplina -- pre_requisitos -- disciplina
-	disciplina -- leciona -- professor
-	disciplina -- grade -- curso
+
+	//LIGAÇOES
+	aluno -- cursou [taillabel = "0,n"] 				cursou -- disciplina [headlabel = "0,n"]
+	aluno -- faz [taillabel = "1"]	 					faz -- proc_matricula [headlabel = "1"]
+	aluno -- estuda [taillabel = "0,n"] 				estuda -- curso [headlabel = "1,n"]
+	curso -- grade 	[taillabel = "1"]					grade -- disciplina [headlabel = "0,n"]
+	disciplina -- leciona [taillabel = "0,n"]			leciona -- professor [headlabel = "0,n"]
+	disciplina -- pre_rec [taillabel = "1"] 			pre_rec -- disciplina [headlabel = "0,n"]
+	disciplina -- calendário [taillabel = "n"]			calendário -- horários [headlabel = "0,n"]
+	proc_matricula -- interesse [taillabel = "0,n"]		interesse -- disciplina [headlabel = "0,n"]
+
+
 }
 
-//meato -Tpng diagramaER.dot -o diagramaER.png
+//neato -Tpng diagramaER.dot -o diagramaER.png
 //dot -Tpng diagramaER.dot -o diagramaER.png
