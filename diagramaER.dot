@@ -22,13 +22,13 @@ graph diagramaER {
 
 	//LIGAÇOES
 	aluno -- cursou [taillabel = "0,n"] 				cursou -- disciplina [headlabel = "0,n"]
-	aluno -- faz [taillabel = "1"]	 					faz -- proc_matricula [headlabel = "1"]
+	aluno -- faz [taillabel = "1"]	 				faz -- proc_matricula [headlabel = "1"]
 	aluno -- estuda [taillabel = "0,n"] 				estuda -- curso [headlabel = "1,n"]
-	curso -- grade 	[taillabel = "1"]					grade -- disciplina [headlabel = "0,n"]
-	disciplina -- leciona [taillabel = "0,n"]			leciona -- professor [headlabel = "0,n"]
+	curso -- grade 	[taillabel = "1"]				grade -- disciplina [headlabel = "0,n"]
+	disciplina -- leciona [taillabel = "0,n"]			leciona -- professor [headlabel = "0,1"]
 	disciplina -- pre_rec [taillabel = "1"] 			pre_rec -- disciplina [headlabel = "0,n"]
 	disciplina -- calendário [taillabel = "n"]			calendário -- horários [headlabel = "0,n"]
-	proc_matricula -- interesse [taillabel = "0,n"]		interesse -- disciplina [headlabel = "0,n"]
+	proc_matricula -- interesse [taillabel = "0,n"]			interesse -- disciplina [headlabel = "0,n"]
 
 
 }
