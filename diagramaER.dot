@@ -1,35 +1,30 @@
 graph diagramaER {
 
 	//ENTIDADES
-	aluno [shape=record]
-	disciplina [shape=record]
-	professor [shape=record]
-	curso [shape=record]
-	horários[shape=record]
-	proc_matricula [shape=record]
+	Aluno [shape=record]
+	Disciplina [shape=record]
+	Professor [shape=record]
+	Curso [shape=record]
+	Horários[shape=record]
+	//Proc_matricula [shape=record]
 
 
 	//RELACIONAMENTOS
-	cursou [shape=diamond]
-	pre_rec [shape=diamond]
-	leciona [shape=diamond]
-	grade [shape=diamond]
-	calendário [shape=diamond]
-	interesse [shape=diamond]
-	estuda [shape=diamond]
-	faz [shape=diamond]
+	ProcMatricula [shape=Mdiamond]
+	PreRequisitos [shape=Mdiamond]
+	Leciona [shape=diamond]
+	Grade [shape=diamond]
+	Calendário [shape=diamond]
+	Estuda [shape=Mdiamond]
 
 
 	//LIGAÇOES
-	aluno -- cursou [taillabel = "0,n"] 				cursou -- disciplina [headlabel = "0,n"]
-	aluno -- faz [taillabel = "1"]	 				faz -- proc_matricula [headlabel = "1"]
-	aluno -- estuda [taillabel = "0,n"] 				estuda -- curso [headlabel = "1,n"]
-	curso -- grade 	[taillabel = "1"]				grade -- disciplina [headlabel = "0,n"]
-	disciplina -- leciona [taillabel = "0,n"]			leciona -- professor [headlabel = "0,1"]
-	disciplina -- pre_rec [taillabel = "1"] 			pre_rec -- disciplina [headlabel = "0,n"]
-	disciplina -- calendário [taillabel = "n"]			calendário -- horários [headlabel = "0,n"]
-	proc_matricula -- interesse [taillabel = "0,n"]			interesse -- disciplina [headlabel = "0,n"]
-
+	Aluno -- ProcMatricula [taillabel = "0,n"] 			ProcMatricula -- Disciplina [headlabel = "0,n"]
+	Aluno -- Estuda [taillabel = "0,n"] 				Estuda -- Curso [headlabel = "1,n"]
+	Curso -- Grade 	[taillabel = "1"]				Grade -- Disciplina [headlabel = "0,n"]
+	Disciplina -- Leciona [taillabel = "0,n"]			Leciona -- Professor [headlabel = "0,1"]
+	Disciplina -- PreRequisitos [taillabel = "1"] 			PreRequisitos -- Disciplina [headlabel = "0,n"]
+	Disciplina -- Calendário [taillabel = "n"]			Calendário -- Horários [headlabel = "0,n"]
 
 }
 
