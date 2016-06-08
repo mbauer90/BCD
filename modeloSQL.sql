@@ -9,20 +9,23 @@ drop table if exists aluno;
 
 # aluno(*cpf,nome,senha)
 create table aluno(
-	cpf bigint unsigned primary key,
+	id smallint unsigned auto_increment primary key,
+    cpf bigint unsigned,
 	nome varchar(50),
 	senha varchar(20)
 );
 
 # professor(*siape,nome)
 create table professor(
-	siape int unsigned primary key,
+	id smallint unsigned auto_increment primary key,
+	siape int unsigned,
     nome varchar(50)
 );
 
 # curso(*codigo,nome)
 create table curso(
-	codigo smallint unsigned primary key,
+	id tinyint unsigned auto_increment primary key,
+	codigo smallint unsigned,
     nome varchar(100)
 );
 
@@ -30,27 +33,29 @@ create table curso(
 # cursoCodigo referencia curso (codigo)
 # professorSiape referencia professor(siape)
 create table disciplina(
-	codigo char(4) primary key,
+	id smallint unsigned auto_increment primary key,
+	codigo char(4),
+    nomeCompleto varchar(50),
     fase tinyint unsigned,
     CH smallint unsigned,
     CHminima smallint unsigned,
-    cursoCodigo smallint unsigned,
-    professorSiape int unsigned,
-    constraint fk_disciplina_cursoCodigo_curso_codigo 
-		foreign key (cursoCodigo) references curso(codigo),
-    constraint fk_disciplina_professorSiape_professor_siape 
-		foreign key (professorSiape) references professor(siape)
+    cursoCodigo tinyint unsigned,
+    professorSiape smallint unsigned,
+    constraint fk_disciplina_cursoCodigo_curso_id 
+		foreign key (cursoCodigo) references curso(id),
+    constraint fk_disciplina_professorSiape_professor_id 
+		foreign key (professorSiape) references professor(id)
 );
 
 # PreRequisitos(***Disciplina,***PreRequisito)
 create table preRequisito(
 	id mediumint unsigned auto_increment primary key,
-	disciplina char(4),
-	preRequisito char(4),
-    constraint fk_preRequisito_disciplina_disciplina_codigo 
-		foreign key (disciplina) references disciplina(codigo),
-    constraint fk_preRequisito_preRequisito_disciplina_codigo 
-		foreign key (preRequisito) references disciplina(codigo)
+	disciplina smallint unsigned,
+	preRequisito smallint unsigned,
+    constraint fk_preRequisito_disciplina_disciplina_id 
+		foreign key (disciplina) references disciplina(id),
+    constraint fk_preRequisito_preRequisito_disciplina_id 
+		foreign key (preRequisito) references disciplina(id)
 );
 
 # Horario(*Turno,*NumAula,*NumDia,*SemanaAB,**Disciplina,Semestre)
@@ -61,10 +66,10 @@ create table horario(
     numAula tinyint unsigned,
     numDia tinyint unsigned,
     semanaAB tinyint unsigned,
-    codigoDisciplina char(4),
+    codigoDisciplina smallint unsigned,
     semestre smallint unsigned,
-    constraint fk_horario_codigoDisciplina_disciplina_codigo 
-		foreign key (codigoDisciplina) references disciplina(codigo)
+    constraint fk_horario_codigoDisciplina_disciplina_id 
+		foreign key (codigoDisciplina) references disciplina(id)
 );
 
 # Matricula(**aluno,**curso,matricula)
@@ -72,13 +77,13 @@ create table horario(
 # curso referencia curso (codigo)
 create table matricula(
 	id smallint unsigned auto_increment primary key,
-    aluno bigint unsigned,
-    curso smallint unsigned,
+    aluno smallint unsigned,
+    curso tinyint unsigned,
     matricula int unsigned,
-    constraint fk_matricula_aluno_aluno_cpf 
-		foreign key (aluno) references aluno(cpf),
-    constraint fk_matricula_curso_curso_codigo 
-		foreign key (curso) references curso(codigo)
+    constraint fk_matricula_aluno_aluno_id 
+		foreign key (aluno) references aluno(id),
+    constraint fk_matricula_curso_curso_id 
+		foreign key (curso) references curso(id)
 );
 
 # processoMatricula(***matricula,***disciplinca,semestre,concluido)
@@ -87,11 +92,11 @@ create table matricula(
 create table processoMatricula(
 	id smallint unsigned auto_increment primary key,
     matricula smallint unsigned,
-    disciplina char(4),
+    disciplina smallint unsigned,
     concluido tinyint unsigned,
     semestre smallint unsigned,
     constraint fk_processoMatricula_matricula_matricula_id
 		foreign key (matricula) references matricula(id),
-	constraint fk_processoMatricula_disciplina_disciplina_codigo
-		foreign key (disciplina) references disciplina(codigo)
+	constraint fk_processoMatricula_disciplina_disciplina_id
+		foreign key (disciplina) references disciplina(id)
 );
